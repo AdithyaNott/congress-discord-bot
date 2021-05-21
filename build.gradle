@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+zzz
+
+repositories {
+    mavenCentral()
+    maven {
+        name 'm2-dv8tion'
+        url 'https://m2.dv8tion.net/releases'
+    }
+}
+
+application {
+    mainClassName = "congressbot.CongressBotDriver"
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "congressbot.CongressBotDriver"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    compile 'net.dv8tion:JDA:4.2.1_253'
+    compile "org.slf4j:slf4j-simple:1.7.9"
+    implementation group: 'org.json', name: 'json', version: '20210307'
+}
+
+test {
+    useJUnitPlatform()
+}
